@@ -30,13 +30,16 @@ class captchas:
 半数图片底色为深色，二值化后投影的向量与正常图片相反，所以需要检测进行反色处理。
 ### 自动选阈值进行二值化
 二分查找合适的阈值，使得高于此灰度的像素点和低于此灰度的像素点等于某个参数。
+
 ![Bi](https://github.com/FlouriteJ/captcha-ocr/raw/master/md/captcha_5a5e2e2d11489_1.jpg)
 ### 去噪点、去除或切断干扰线
 实验后发现较为优秀的方法，首先重复去除周围至少有7个白点的黑色像素点，直到没有可以去除的，消除噪点；然后去除上下或左右均为白的的黑色像素点，消除横线或竖线；最后重复去除周围至少有7个白点的黑色像素点，直到没有可以去除的，消除线段消除后的剩余噪点。
+
 ![Clean](https://github.com/FlouriteJ/captcha-ocr/raw/master/md/captcha_5a5e2e2d11489_2.jpg
 ### 分割图片
 将灰度投影到y坐标轴上，寻找最大的点，两边搜索连续较大点，直至等于最大长度，保存左右坐标内的图片；然后继续寻找，直至达到字符数目。
 实验中这个办法远远好于寻找某个下降比例作为左右节点。
+
 ![Cut](https://github.com/FlouriteJ/captcha-ocr/raw/master/md/captcha_5a5e2e2d11489_3.jpg
 
 ### 遍历每个分割，寻找最大连通
@@ -47,6 +50,7 @@ class captchas:
 分别往x轴、y轴投影，切除值两边为零的连续部分。
 ### 标准化图像
 将图像缩放到某个比例的正方形，便于训练和识别。
+
 ![Normalized 1](https://github.com/FlouriteJ/captcha-ocr/raw/master/md/1_captcha_5a5e2e2d11489.jpg
 ![Normalized 2](https://github.com/FlouriteJ/captcha-ocr/raw/master/md/0_captcha_5a5e2e2d11489.jpg
 ![Normalized 3](https://github.com/FlouriteJ/captcha-ocr/raw/master/md/2_captcha_5a5e2e2d11489.jpg
